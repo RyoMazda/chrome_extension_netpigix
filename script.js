@@ -44,9 +44,10 @@ function updateTextsOnView(newTexts) {
   Array.prototype.push.apply(textsOnView, newTexts);
 
   // if textsOnView has too many contents, remove some
+  const numLinesOnView = 6;
   let numTexts = textsOnView.length;
-  if (numTexts > 4) {
-    for (let i = 0; i < numTexts - 4; i++) {
+  if (numTexts > numLinesOnView) {
+    for (let i = 0; i < numTexts - numLinesOnView; i++) {
       textsOnView.shift();
     }
   }

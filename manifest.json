@@ -4,11 +4,11 @@
   "description": "Extension for learning English using Netflix",
   "version": "1.0",
   "icons": {
-    "16": "images/pigimaru.png",
-    "128": "images/pigimaru.png"
+    "16": "pigimaru.png",
+    "128": "pigimaru.png"
   },
   "browser_action": {
-    "default_icon": "images/pigimaru.png"
+    "default_icon": "pigimaru.png"
   },
   "content_scripts": [
     {
