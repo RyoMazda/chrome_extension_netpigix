@@ -1,0 +1,26 @@
+{
+  "manifest_version": 2,
+  "name": "Netpigix",
+  "description": "Extension for learning English using Netflix",
+  "version": "1.0",
+  "icons": {
+    "16": "images/pigimaru.png",
+    "128": "images/pigimaru.png"
+  },
+  "browser_action": {
+    "default_icon": "images/pigimaru.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.netflix.com/watch/*"
+      ],
+      "css": [
+        "my_style.css"
+      ],
+      "js": [
+        "script.js"
+      ]
+    }
+  ]
+}
