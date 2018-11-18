@@ -1,5 +1,4 @@
 # NETPIGIX
-This is a chrome extension for those who use NETFLIX for learning English.
 
 ## Motivation
 * Issues of the default NETFLIX video player
@@ -13,6 +12,9 @@ Since this extension is not published to the official Chrome Web Store, you have
 * open your Chrome and go to Extensions settings `chrome://extensions/`
 * turn `Developer mode` on
 * `Load unpacked` and select this directory
+
+## Usage
+* press `Alt` or `option` key to toggle the custom subtitle
 
 ## DOM structure of the Netflix watch-video page (extracted only the relevant part)
 memo for development purpose
