@@ -4,7 +4,7 @@ const customSubtitleId = "netpigix-subtitle-container";
 let textsOnView = [];
 
 // execute the main function every 1000ms
-// This must be a dumb way but at least it works file now
+// This must be a dumb way but at least it works without much problem
 setInterval(main, 1000);
 
 function main() {
@@ -83,11 +83,17 @@ function updateView(){
 // toggle the custom subtitle
 let off_flag = true;
 window.document.onkeydown = function(event){
-  console.log(event);
+  // console.log(event);
   if (event.key === 'Alt') {
-    console.log('toggle!');
+    // console.log('toggle!');
     let target = document.getElementById(customSubtitleId);
     target.classList.toggle("netpigix-hide");
     off_flag = !off_flag;
+  }
+  // when Space is pressed, the custom subtitle should be off always
+  if (event.code === 'Space' && !off_flag) {
+    let target = document.getElementById(customSubtitleId);
+    target.classList.add("netpigix-hide");
+    off_flag = true;
   }
 };
