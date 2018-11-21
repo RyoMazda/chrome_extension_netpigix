@@ -14,7 +14,8 @@ Since this extension is not published to the official Chrome Web Store, you have
 * `Load unpacked` and select this directory
 
 ## Usage
-* press `Alt` or `option` key to toggle the custom subtitle
+* You may have to reload the page `https://www.netflix.com/watch/*` to activate the extension.
+* Press `Alt` or `option` key to toggle the custom subtitle.
 
 ## DOM structure of the Netflix watch-video page (extracted only the relevant part)
 memo for development purpose

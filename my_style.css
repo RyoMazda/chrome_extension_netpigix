@@ -7,6 +7,9 @@
 .PlayerControls--with-dim-background:before {
   background: none !important;
 }
+.PlayerControlsNeo__layout--dimmed {
+  background-color: rgba(0,0,0,0) !important;
+}
 
 /* this is annoying too */
 .evidence-overlay {
