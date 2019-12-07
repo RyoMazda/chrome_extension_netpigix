@@ -171,6 +171,7 @@ window.document.onkeydown = function(event){
     turnOffSubtitle();
 
     // For speech input
+    recognition.stop();
     recognition.start();
     setTimeout((): void => {
       setTimeout(recognition.stop());
