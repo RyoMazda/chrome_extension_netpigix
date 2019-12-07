@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Netpigix",
   "description": "Extension for learning English using Netflix",
-  "version": "1.0",
+  "version": "2.0",
   "icons": {
     "16": "pigimaru.png",
     "128": "pigimaru.png"
@@ -19,7 +19,7 @@
         "my_style.css"
       ],
       "js": [
-        "script.js"
+        "content.js"
       ]
     }
   ]

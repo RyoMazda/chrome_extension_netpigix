@@ -1,21 +1,24 @@
 // id for the custom parent DOM element
 const customSubtitleId = "netpigix-subtitle-container";
 // save the subtitles in this array
-let textsOnView = [];
+let textsOnView: string[] = [];
 
 // execute the main function every 1000ms
 // This must be a dumb way but at least it works without much problem
 setInterval(main, 1000);
 
 function main() {
-  if (document.contains(document.getElementsByClassName("player-timedtext-text-container")[0])) {
+  const rootElement = <HTMLElement> document.getElementsByClassName("player-timedtext-text-container")[0];
+  if (document.contains(rootElement)) {
     // console.log("found it");
-    let ele = document.getElementsByClassName("player-timedtext-text-container")[0];
     // get the latest subtitle as newTexts
-    let newTexts = [];
-    for (let i = 0; i < ele.childElementCount; i++) {
-      let text = ele.children[i].innerText;
-      newTexts.push(text);
+    let newTexts: string[] = [];
+    for (let i = 0; i < rootElement.childElementCount; i++) {
+      const target = <HTMLElement> rootElement.children[i];
+      if (target != null) {
+        const text = target.innerText;
+        newTexts.push(text);
+      }
     }
     // update
     if (isTextsChanged(textsOnView, newTexts)) updateTextsOnView(newTexts);
@@ -23,7 +26,7 @@ function main() {
 }
 
 
-function isTextsChanged(baseTexts, newTexts) {
+function isTextsChanged(baseTexts: string[], newTexts: string[]) {
   let len = newTexts.length;
   let targetRange = baseTexts.slice(- len);
   for (let i = 0; i < len; i++) {
@@ -33,7 +36,7 @@ function isTextsChanged(baseTexts, newTexts) {
 }
 
 
-function updateTextsOnView(newTexts) {
+function updateTextsOnView(newTexts: string[]) {
   // console.log("update texts");
   // console.log("current:");
   // console.log(textsOnView);
@@ -62,7 +65,10 @@ function updateView(){
 
   // wipe out the old one first
   if (document.contains(document.getElementById(customSubtitleId))) {
-    document.getElementById(customSubtitleId).remove();
+    const target = document.getElementById(customSubtitleId);
+    if (target != null) {
+      target.remove();
+    }
   }
 
   let mySubtitleElement = document.createElement("div");
@@ -75,7 +81,7 @@ function updateView(){
     mySubtitleElement.appendChild(textElement);
   }
 
-  let element = document.getElementsByClassName("VideoContainer")[0];
+  const element = document.getElementsByClassName("VideoContainer")[0];
   element.appendChild(mySubtitleElement);
 }
 
@@ -86,14 +92,18 @@ window.document.onkeydown = function(event){
   // console.log(event);
   if (event.key === 'Alt') {
     // console.log('toggle!');
-    let target = document.getElementById(customSubtitleId);
-    target.classList.toggle("netpigix-hide");
-    off_flag = !off_flag;
+    const target = document.getElementById(customSubtitleId);
+    if (target != null) {
+      target.classList.toggle("netpigix-hide");
+      off_flag = !off_flag;
+    }
   }
   // when Space is pressed, the custom subtitle should be off always
   if (event.code === 'Space' && !off_flag) {
-    let target = document.getElementById(customSubtitleId);
-    target.classList.add("netpigix-hide");
-    off_flag = true;
+    const target = document.getElementById(customSubtitleId);
+    if (target != null) {
+      target.classList.add("netpigix-hide");
+      off_flag = true;
+    }
   }
 };
