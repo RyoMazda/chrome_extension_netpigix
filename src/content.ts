@@ -9,7 +9,7 @@ let textsOnView: string[] = [];
 // This must be a dumb way but at least it works without much problem
 setInterval(main, 1000);
 
-function main() {
+function main(): void {
   const rootElement = <HTMLElement> document.getElementsByClassName("player-timedtext-text-container")[0];
   if (document.contains(rootElement)) {
     // console.log("found it");
@@ -28,7 +28,7 @@ function main() {
 }
 
 
-function isTextsChanged(baseTexts: string[], newTexts: string[]) {
+function isTextsChanged(baseTexts: string[], newTexts: string[]): boolean {
   let len = newTexts.length;
   let targetRange = baseTexts.slice(- len);
   for (let i = 0; i < len; i++) {
@@ -91,24 +91,23 @@ function updateView(): void {
 // --------------------
 // For User Controls
 // --------------------
-let subtitle_off_flag = true;
+function isPlaying(): boolean {
+  const playOrStopButton = document.getElementsByClassName("PlayerControlsNeo__button-control-row")[0].children[0];
+  return playOrStopButton.classList.toString().split(" ").indexOf("button-nfplayerPlay") >= 0;
+}
+
 
 function toggleSubtitle(): void {
-  console.log("Toggle subtitle!");
   const target = document.getElementById(customSubtitleId);
   if (target != null) {
     target.classList.toggle("netpigix-hide");
-    subtitle_off_flag = !subtitle_off_flag;
   }
 }
 
 function turnOffSubtitle(): void {
-  if (!subtitle_off_flag) {
-    const target = document.getElementById(customSubtitleId);
-    if (target != null) {
-      target.classList.add("netpigix-hide");
-      subtitle_off_flag = true;
-    }
+  const target = document.getElementById(customSubtitleId);
+  if (target != null) {
+    target.classList.add("netpigix-hide");
   }
 }
 
@@ -141,7 +140,7 @@ recognition.stop();
 
 recognition.onresult = (event: any): void => {
   const text = event.results[0][0]["transcript"].toLocaleLowerCase();
-  console.log(text);
+  console.log("From Speech Recognition: " + text);
   if (text === "show me") {
     toggleSubtitle();
   } else if (text === "go back") {
@@ -171,10 +170,11 @@ window.document.onkeydown = function(event){
     turnOffSubtitle();
 
     // For speech input
-    recognition.stop();
-    recognition.start();
-    setTimeout((): void => {
-      setTimeout(recognition.stop());
-    },2000);
+    if (!isPlaying()) {
+      recognition.start();
+      setTimeout((): void => {
+        setTimeout(recognition.stop());
+      },2000);
+    }
   }
 };
