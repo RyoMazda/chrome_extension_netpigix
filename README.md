@@ -8,8 +8,8 @@
 
 ## Installation
 Since this extension is not published to the official Chrome Web Store, you have to do the following;
-* Download [`dist.zip`](https://github.com/RyoMazda/chrome_extension_netpigix/releases/download/test/dist.zip)
-from `release` in this repository and unzip it.
+* Download [dist.zip](https://github.com/RyoMazda/chrome_extension_netpigix/releases/download/v0.1/dist.zip)
+and unzip it.
 You'll have `dist` directory.
 * Open your Chrome and go to Extensions settings `chrome://extensions/` and turn `Developer mode` on.
 * Click `Load unpacked` and select the `dist` directory.
