@@ -20,6 +20,9 @@ You'll have `dist` directory.
 
 
 ## Development Memo
+### Refs
+* https://qiita.com/okumurakengo/items/1a4404c20b0bf10f2c68
+
 ### Dependencies
 ```bash
 yarn add -D webpack webpack-cli copy-webpack-plugin typescript ts-loader @types/webpack @types/chrome
