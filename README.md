@@ -8,7 +8,7 @@
 
 ## Installation
 Since this extension is not published to the official Chrome Web Store, you have to do the following;
-* Download [dist.zip](https://github.com/RyoMazda/chrome_extension_netpigix/releases/download/v0.1/dist.zip)
+* Download [dist.zip](https://github.com/RyoMazda/chrome_extension_netpigix/releases/download/v1.0/dist.zip)
 and unzip it.
 You'll have `dist` directory.
 * Open your Chrome and go to Extensions settings `chrome://extensions/` and turn `Developer mode` on.
@@ -16,7 +16,13 @@ You'll have `dist` directory.
 
 ## Usage
 * You may have to reload the page `https://www.netflix.com/watch/*` to activate the extension.
-* Press `Alt` or `option` key to toggle the custom subtitle.
+* Make sure pressing `space` key stops/starts the video (default in Netflix).
+* Press `Alt` or `option` key to toggle the custom subtitle by NetPigix.
+* Press `←` (Left Arrow) key to go back 10 seconds (default in Netflix).
+* Speech Recognition starts every time you press `space` key. If you say, within 2 seconds,;
+  * `show me`, the custom subtitle will be toggled (same as pressing `Alt` or `option`)
+  * `go back`, go back 10 seconds (same as pressing left arrow key)
+  * `go back x seconds`, go back `ceil(x/10)` seconds
 
 
 ## Development Memo
@@ -34,7 +40,8 @@ yarn add -D webpack webpack-cli copy-webpack-plugin typescript ts-loader @types/
 ```
 
 ### Test
-See `Installation` above and try it (I know this is not a smart way. Please give me some advice.).
+* Just try it. There's no test code.
+* Note that there's reload icon for each extension in `chrome://extensions`, which is nice.
 
 ### Release
 * Click the `release` and `Draft a new release`.
