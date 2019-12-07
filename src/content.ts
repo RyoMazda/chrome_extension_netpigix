@@ -1,3 +1,5 @@
+console.log("Netpigix v1.0.6 Start!");
+
 // id for the custom parent DOM element
 const customSubtitleId = "netpigix-subtitle-container";
 // save the subtitles in this array
@@ -36,7 +38,7 @@ function isTextsChanged(baseTexts: string[], newTexts: string[]) {
 }
 
 
-function updateTextsOnView(newTexts: string[]) {
+function updateTextsOnView(newTexts: string[]): void {
   // console.log("update texts");
   // console.log("current:");
   // console.log(textsOnView);
@@ -59,7 +61,7 @@ function updateTextsOnView(newTexts: string[]) {
 }
 
 
-function updateView(){
+function updateView(): void {
   // console.log("I'm updateView");
   // console.log(textsOnView);
 
@@ -73,7 +75,7 @@ function updateView(){
 
   let mySubtitleElement = document.createElement("div");
   mySubtitleElement.id = customSubtitleId;
-  if (off_flag) mySubtitleElement.classList.add("netpigix-hide");
+  mySubtitleElement.classList.add("netpigix-hide");
   for (let i = 0; i < textsOnView.length; i++) {
     let textElement = document.createElement("div");
     textElement.classList.add("netpigix-text");
@@ -86,24 +88,92 @@ function updateView(){
 }
 
 
-// toggle the custom subtitle
-let off_flag = true;
-window.document.onkeydown = function(event){
-  // console.log(event);
-  if (event.key === 'Alt') {
-    // console.log('toggle!');
-    const target = document.getElementById(customSubtitleId);
-    if (target != null) {
-      target.classList.toggle("netpigix-hide");
-      off_flag = !off_flag;
-    }
+// --------------------
+// For User Controls
+// --------------------
+let subtitle_off_flag = true;
+
+function toggleSubtitle(): void {
+  console.log("Toggle subtitle!");
+  const target = document.getElementById(customSubtitleId);
+  if (target != null) {
+    target.classList.toggle("netpigix-hide");
+    subtitle_off_flag = !subtitle_off_flag;
   }
-  // when Space is pressed, the custom subtitle should be off always
-  if (event.code === 'Space' && !off_flag) {
+}
+
+function turnOffSubtitle(): void {
+  if (!subtitle_off_flag) {
     const target = document.getElementById(customSubtitleId);
     if (target != null) {
       target.classList.add("netpigix-hide");
-      off_flag = true;
+      subtitle_off_flag = true;
     }
+  }
+}
+
+function goBack(): void {
+  let e = new KeyboardEvent("keydown", {
+    bubbles : true,
+    cancelable : true,
+    key : "ArrowLeft",
+    code: "ArrowLeft",
+    // @ts-ignore
+    keyCode: 37,
+    shiftKey : false
+  });
+  document.getElementsByClassName("controls-full-hit-zone")[0].dispatchEvent(e);
+}
+
+
+// Speech Recognition Interface
+export interface IWindow extends Window {
+  webkitSpeechRecognition: any;
+}
+const {webkitSpeechRecognition} : IWindow = (window as any);
+const recognition = new webkitSpeechRecognition();
+recognition.lang = 'en-US';
+recognition.interimResults = false;
+recognition.maxAlternatives = 1;
+
+recognition.start();
+recognition.stop();
+
+recognition.onresult = (event: any): void => {
+  const text = event.results[0][0]["transcript"].toLocaleLowerCase();
+  console.log(text);
+  if (text === "show me") {
+    toggleSubtitle();
+  } else if (text === "go back") {
+    goBack();
+  } else if (text.slice(0, 7) === "go back" && text.slice(-7) == "seconds") {
+    let time = parseInt(text.slice(8, -8));
+    while (time > 0) {
+      goBack();
+      time -= 10;
+    }
+  }
+};
+
+recognition.onspeechend = (): void => {
+  recognition.stop();
+};
+
+
+// Keyboard Interface
+window.document.onkeydown = function(event){
+  if (event.key === "Alt") {
+    toggleSubtitle();
+  }
+
+  if (event.code === "Space") {
+    // Turn off subtitles always
+    turnOffSubtitle();
+
+    // For speech input
+    recognition.start();
+    setTimeout((): void => {
+      setTimeout(recognition.stop());
+    },2000);
   }
 };
