@@ -1,15 +1,30 @@
-console.log("Netpigix v1.0.6 Start!");
+let llnFlag = false;
 
 // id for the custom parent DOM element
 const customSubtitleId = "netpigix-subtitle-container";
 // save the subtitles in this array
 let textsOnView: string[] = [];
 
-// execute the main function every 1000ms
-// This must be a dumb way but at least it works without much problem
-setInterval(main, 1000);
 
 function main(): void {
+  console.log("Netpigix v2.0.0 Start!");
+  setTimeout(
+    function () {
+      if (document.getElementsByClassName('lln-bottom-panel').length >= 1) {
+        llnFlag = true;
+        console.log("You use lln.");
+        if (!llnFlag) {
+          // execute the main function every 1000ms
+          // This must be a dumb way but at least it works without much problem
+          setInterval(updateCustomSubtitle, 1000);
+        }
+      }
+    },
+    2000
+  );
+}
+
+function updateCustomSubtitle(): void {
   const rootElement = <HTMLElement> document.getElementsByClassName("player-timedtext-text-container")[0];
   if (document.contains(rootElement)) {
     // console.log("found it");
@@ -65,17 +80,17 @@ function updateView(): void {
   // console.log("I'm updateView");
   // console.log(textsOnView);
 
+  let hiddenFlag = false;
+  const target = document.getElementById(customSubtitleId);
   // wipe out the old one first
-  if (document.contains(document.getElementById(customSubtitleId))) {
-    const target = document.getElementById(customSubtitleId);
-    if (target != null) {
-      target.remove();
-    }
+  if (target != null) {
+    if (target.classList.contains('netpigix-hide')) hiddenFlag = true;
+    target.remove();
   }
 
   let mySubtitleElement = document.createElement("div");
   mySubtitleElement.id = customSubtitleId;
-  mySubtitleElement.classList.add("netpigix-hide");
+  if (hiddenFlag) mySubtitleElement.classList.add("netpigix-hide");
   for (let i = 0; i < textsOnView.length; i++) {
     let textElement = document.createElement("div");
     textElement.classList.add("netpigix-text");
@@ -101,6 +116,17 @@ function toggleSubtitle(): void {
   const target = document.getElementById(customSubtitleId);
   if (target != null) {
     target.classList.toggle("netpigix-hide");
+  }
+}
+
+function toggleSubtitleLln(): void {
+  const target = document.getElementsByClassName('AkiraPlayer')[0];
+  if (target != null) {
+    target.classList.toggle("netpigix-AkiraPlayer--full");
+  }
+  const bottomPanel = document.getElementsByClassName('lln-bottom-panel')[0];
+  if (bottomPanel != null) {
+    bottomPanel.classList.toggle("netpigix-hide");
   }
 }
 
@@ -161,20 +187,30 @@ recognition.onspeechend = (): void => {
 
 // Keyboard Interface
 window.document.onkeydown = function(event){
-  if (event.key === "Alt") {
-    toggleSubtitle();
-  }
+  console.log(event);
+  if (llnFlag) {
+    if (event.key === "Alt" || event.key === "x") {
+      toggleSubtitleLln();
+    }
+  } else {
+    if (event.key === "Alt") {
+      toggleSubtitle();
+    }
 
-  if (event.code === "Space") {
-    // Turn off subtitles always
-    turnOffSubtitle();
+    if (event.code === "Space") {
+      // Turn off subtitles always
+      turnOffSubtitle();
 
-    // For speech input
-    if (!isPlaying()) {
-      recognition.start();
-      setTimeout((): void => {
-        setTimeout(recognition.stop());
-      },2000);
+      // For speech input
+      if (!isPlaying()) {
+        recognition.start();
+        setTimeout((): void => {
+          setTimeout(recognition.stop());
+        },2000);
+      }
     }
   }
 };
+
+
+main();

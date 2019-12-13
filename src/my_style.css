@@ -46,3 +46,8 @@
 .netpigix-text > br {
     display: none;
 }
+
+.netpigix-AkiraPlayer--full {
+    width: 100% !important;;
+    height: 100% !important;;
+}
