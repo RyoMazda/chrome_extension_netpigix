@@ -8,7 +8,7 @@
 
 ## Installation
 Since this extension is not published to the official Chrome Web Store, you have to do the following;
-* Download [dist.zip](https://github.com/RyoMazda/chrome_extension_netpigix/releases/download/v1.0/dist.zip)
+* Download [dist.zip](https://github.com/RyoMazda/chrome_extension_netpigix/releases/download/v2.0/dist.zip)
 and unzip it.
 You'll have `dist` directory.
 * Open your Chrome and go to Extensions settings `chrome://extensions/` and turn `Developer mode` on.
@@ -23,6 +23,11 @@ You'll have `dist` directory.
   * `show me`, the custom subtitle will be toggled (same as pressing `Alt` or `option`)
   * `go back`, go back 10 seconds (same as pressing left arrow key)
   * `go back x seconds`, go back `ceil(x/10)` seconds
+
+### If you use [LLN](https://chrome.google.com/webstore/detail/language-learning-with-ne/hoombieeljmmljlkjmnheibnpciblicm)
+By default, I bet you end up reading the subtitle without improving your listening skills at all.
+
+* You can hide the subtitle by pressing `Alt` or `x`.
 
 
 ## Development Memo
