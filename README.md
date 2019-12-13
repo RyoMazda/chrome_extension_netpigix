@@ -27,7 +27,7 @@ You'll have `dist` directory.
 ### If you use [LLN](https://chrome.google.com/webstore/detail/language-learning-with-ne/hoombieeljmmljlkjmnheibnpciblicm)
 By default, I bet you end up reading the subtitle without improving your listening skills at all.
 
-* You can hide the subtitle by pressing `Alt` or `x`.
+* You can hide the subtitle by pressing `Alt`, `option` or `x`.
 
 
 ## Development Memo
